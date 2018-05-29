@@ -1,0 +1,369 @@
+---
+title: Tokenizer Demo
+speaker:
+  avatar: avatar.png
+  name: Pathompon Jirawanidchakorn (Boat)
+  role: CTO of Event Pop
+  email: boat@eventpop.me
+  github:
+    name: vaixellx
+    url: https://github.com/vaixellx
+concern_doc_url: http://api.rubyonrails.org/classes/ActiveSupport/Concern.html
+commits:
+  duplicated:
+    sha: 02a3604
+    full_sha: 02a36049724a1d2ea78827b88e469dd60954a6ee
+    url: https://github.com/vaixellx/tokenizer_demo/commit/02a36049724a1d2ea78827b88e469dd60954a6ee
+  create_tokenize:
+    sha: 6e6f430
+    full_sha: 6e6f430bc40b8443ccf2cb44bff8f11bb94b168c
+    url: https://github.com/vaixellx/tokenizer_demo/commit/6e6f430bc40b8443ccf2cb44bff8f11bb94b168c
+  tokenize_receive_column_name:
+    sha: d106c12
+    full_sha: d106c125c8866ef8924e0113245ae65d03d6bf4b
+    url: https://github.com/vaixellx/tokenizer_demo/commit/d106c125c8866ef8924e0113245ae65d03d6bf4b
+  tokenize_receive_token_length:
+    sha: 1d9a34d
+    full_sha: 1d9a34df6698d029cd315aa62122b0b77921a6b1
+    url: https://github.com/vaixellx/tokenizer_demo/commit/1d9a34df6698d029cd315aa62122b0b77921a6b1
+---
+
+<div id="full-page">
+  <div class="section" data-anchor="welcome">
+    <div class="container text-center">
+      <div id="logo">
+        <i class="fa fa-gem tada infinite animated"></i> <!-- .fa fa-gem -->
+
+        <h3>
+          Welcome to Ruby Tuesday!
+          <br>
+          <small class="text-muted">Wed, 30 May 2018</small> <!-- .text-muted -->
+        </h3>
+      </div> <!-- #logo -->
+      <hr>
+      <h2 class="text-primary">
+        Reduce Code Duplication using <strong>Concern</strong>.
+      </h2> <!-- .text-primary -->
+    </div> <!-- .container text-center -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="whoami">
+    <div class="container text-center">
+      <h2 class="text-primary">
+        Who am I?
+      </h2> <!-- .text-primary -->
+
+      <%= image_tag current_page.data.speaker.avatar, width: 120, class: 'avatar' %>
+      <div style="margin-top: 15px;">
+        <%= current_page.data.speaker.name %>
+        <br>
+        <small class="text-muted">
+          <%= current_page.data.speaker.role %>
+          <br><br>
+
+          <% link_to "mailto:#{current_page.data.speaker.email}" do %>
+            <i class="far fa-fw fa-envelope"></i> <!-- .far fa-envelope -->
+            <%= current_page.data.speaker.email %>
+          <% end %>
+          <br>
+
+          <% link_to current_page.data.speaker.github.url do %>
+            <i class="fab fa-fw fa-github-alt"></i> <!-- .fab fa-github-alt -->
+            <%= current_page.data.speaker.github.name %>
+            <br>
+          <% end %>
+        </small> <!-- .text-muted -->
+      </div>
+    </div> <!-- .container text-center -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="getting-started">
+    <div class="container cover">
+      <h2 class="text-primary">Getting Started</h2> <!-- .text-primary -->
+
+      <ul>
+        <li>
+          Clone project from
+          <a target="_blank" href="https://github.com/vaixellx/tokenizer_demo">Github</a>.
+          <code class="shell">git clone git@github.com:vaixellx/tokenizer_demo.git</code>
+        </li>
+
+        <li>
+          Checkout commit which still has problems.
+          <code class="shell">git checkout <%= current_page.data.commits.duplicated.full_sha %></code>
+        </li>
+      </ul>
+    </div> <!-- .container -->
+  </div> <!-- .section -->
+
+  <% ['ActionToken', 'LoginToken', 'Invitation', 'Ticket'].each do |model_name| %>
+    <div class="section" data-anchor="code-<%= model_name.underscore.gsub('_', '-') %>">
+      <div class="container">
+        <h2>Model <%= model_name %></h2>
+        <code class="ruby"><%= partial "codes/before/#{model_name.underscore}" %></code> <!-- .ruby -->
+      </div> <!-- .container -->
+    </div> <!-- .section -->
+  <% end %>
+
+  <div class="section" data-anchor="what-is-problem">
+    <div class="container text-center">
+      <h1>What is the problem?</h1>
+      <div class="big-moji">🤔</div> <!-- .big-moji -->
+    </div> <!-- .container text-center -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="duplicate-everywhere">
+    <div class="container text-center">
+      <%= image_tag 'duplicate.jpg', width: 650, class: 'img-rounded' %>
+      <br><br>
+      <small>
+        View on Github:
+        <% link_to current_page.data.commits.duplicated.url, class: "commit", target: :_blank do %>
+          <i class="fas fa-code-branch"></i> <!-- .fas fa-link -->
+          <strong><%= current_page.data.commits.duplicated.sha %></strong>
+        <% end %>
+      </small>
+    </div> <!-- .container text-center -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="how-to-fix">
+    <div class="container text-center">
+      <h1>How to fix these codes?</h1>
+    </div> <!-- .container text-center -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="active-support-concern">
+    <div class="container cover">
+      <h2 class="text-primary">ActiveSupport::Concern</h2> <!-- .text-primary -->
+      <ul>
+        <li>Ruby module with more tools like <em>class_methods</em>, <em>included</em>.</li>
+        <li>Better dependencies handling.</li>
+        <li>
+          Cleaner.
+
+          <div class="row hidden-mobile">
+            <div class="flex flex-1">
+              <code class="ruby smaller"><%= partial 'codes/concerns/module' %></code> <!-- .ruby -->
+            </div> <!-- .flex flex-1 -->
+            <div class="flex flex-1">
+              <code class="ruby smaller"><%= partial 'codes/concerns/concern' %></code> <!-- .ruby -->
+            </div> <!-- .flex flex-1 -->
+          </div> <!-- .row -->
+        </li>
+        <li>
+          Learn more, see
+          <%= link_to 'documentation', current_page.data.concern_doc_url, target: :_blank %>.
+        </li>
+      </ul>
+    </div> <!-- .container cover -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="refactoring-begin">
+    <div class="container text-center">
+      <h1>Refactoring Begin!</h1>
+    </div> <!-- .container text-center -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="1-create-tokenizer-module">
+    <div class="container cover">
+      <h1 class="text-primary">
+        1. Create Tokenizer module.
+      </h1> <!-- .text-primary -->
+
+      <ul>
+        <li>Move duplicate code to <em class="text-muted">app/models/concerns/tokenizer.rb</em></li>
+        <li>
+          Replace duplicated code with
+          <code class="inline">tokenizer</code> <!-- .inline -->
+          in
+          <code class="inline">ActionToken</code> <!-- .inline -->
+          and
+          <code class="inline">LoginToken</code> <!-- .inline -->
+          model.
+        </li>
+        <li>
+          View on Github:
+          <% link_to current_page.data.commits.create_tokenize.url, class: "commit", target: :_blank do %>
+            <i class="fas fa-code-branch"></i> <!-- .fas fa-link -->
+            <strong><%= current_page.data.commits.create_tokenize.sha %></strong>
+          <% end %>
+        </li>
+      </ul>
+    </div> <!-- .container cover -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="1-1-simple-tokenizer">
+    <div class="container cover">
+      <h2>Move duplicate code to tokenizer</h2>
+      <code class="ruby smaller"><%= partial 'codes/tokenizers/simple' %></code> <!-- .ruby smaller -->
+    </div> <!-- .container cover -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="1-2-apply-tokenizer-to-token-model">
+    <div class="container cover">
+      <h2>Replace duplicated code with tokenizer.</h2>
+      <div class="row">
+        <div class="flex flex-1">
+          Model ActionToken
+          <code class="ruby"><%= partial 'codes/after/action_token' %></code> <!-- .ruby -->
+        </div> <!-- .flex flex-1 -->
+
+        <div class="flex flex-1">
+          Model LoginToken
+          <code class="ruby"><%= partial 'codes/after/login_token' %></code> <!-- .ruby -->
+        </div> <!-- .flex flex-1 -->
+      </div> <!-- .row -->
+    </div> <!-- .container cover -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="2-make-tokenizer-work-with-other-column">
+    <div class="container cover">
+      <h1 class="text-primary">
+        2. Make Tokenizer work with other column.
+      </h1> <!-- .text-primary -->
+
+      <ul>
+        <li>
+          Add <em class="text-muted">column_name</em> to
+          <code class="inline">tokenize</code> <!-- .inline --> method.
+        <li>
+          Apply <code class="inline">tokenize</code> <!-- .inline -->
+          with custom column to
+          <code class="inline">Ticket</code> <!-- .inline -->
+          model.
+        </li>
+        <li>
+          View on Github:
+          <% link_to current_page.data.commits.tokenize_receive_column_name.url, class: "commit", target: :_blank do %>
+            <i class="fas fa-code-branch"></i> <!-- .fas fa-link -->
+            <strong><%= current_page.data.commits.tokenize_receive_column_name.sha %></strong>
+          <% end %>
+        </li>
+      </ul>
+    </div> <!-- .container cover -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="2-1-add-column-name-to-tokenizer">
+    <div class="container cover">
+      <h2>Add column_name to tokenize method.</h2>
+      <code class="ruby smaller"><%= partial 'codes/tokenizers/with_column_name' %></code> <!-- .ruby smaller -->
+    </div> <!-- .container cover -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="2-2-apply-to-ticket">
+    <div class="container cover">
+      <h2>Apply tokenize with custom column to Ticket model.</h2>
+      <code class="ruby"><%= partial 'codes/after/ticket' %></code> <!-- .ruby -->
+    </div> <!-- .container cover -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="3-make-tokenizer-work-with-other-length">
+    <div class="container cover">
+      <h1 class="text-primary">
+        3. Make Tokenizer can specify token length.
+      </h1> <!-- .text-primary -->
+
+      <ul>
+        <li>
+          Add <em class="text-muted">length</em> to <code class="inline">tokenize</code> <!-- .inline -->
+          method.
+        <li>
+          Apply <code class="inline">tokenizer</code> <!-- .inline -->
+          with length to
+          <code class="inline">Invitation</code> <!-- .inline -->
+          model.
+        </li>
+        <li>
+          View on Github:
+          <% link_to current_page.data.commits.tokenize_receive_token_length.url, class: "commit", target: :_blank do %>
+            <i class="fas fa-code-branch"></i> <!-- .fas fa-link -->
+            <strong><%= current_page.data.commits.tokenize_receive_token_length.sha %></strong>
+          <% end %>
+        </li>
+      </ul>
+    </div> <!-- .container cover -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="3-1-add-length-to-tokenizer">
+    <div class="container cover">
+      <h2>Add length to tokenize method.</h2>
+      <code class="ruby smaller"><%= partial 'codes/tokenizers/with_length' %></code> <!-- .ruby smaller -->
+    </div> <!-- .container cover -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="3-2-apply-to-invitation">
+    <div class="container cover">
+      <h2>Apply tokenize with length to Invitation model.</h2>
+      <code class="ruby"><%= partial 'codes/after/invitation' %></code> <!-- .ruby -->
+    </div> <!-- .container cover -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="after-refactor">
+    <div class="container cover">
+      <h2 class="text-primary">After Refactor</h2> <!-- .text-primary -->
+
+      <% ['ActionToken', 'LoginToken', 'Invitation', 'Ticket'].each_slice(2) do |models| %>
+        <div class="row">
+          <% models.each do |model_name| %>
+            <div class="flex flex-1">
+              <%= model_name %>
+              <code class="ruby smaller"><%= partial "codes/after/#{model_name.underscore}" %></code> <!-- .ruby smaller -->
+            </div> <!-- .flex flex-1 -->
+          <% end %>
+        </div> <!-- .row -->
+      <% end %>
+    </div> <!-- .container cover -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="awesome!">
+    <div class="container text-center">
+      <h1>Awesome!!!</h1>
+      <%= image_tag 'awesome.png', width: 250 %>
+    </div> <!-- .container text-center -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="q-and-a">
+    <div class="container text-center">
+      <h1>Q & A</h1>
+      <%= image_tag 'qa.jpg', width: 650, class: 'img-rounded' %>
+    </div> <!-- .container text-center -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="we-are-hiring">
+    <div class="container text-center">
+      <h1>We are Hiring!</h1>
+      <p>
+        <small>
+          <i class="fas fa-stopwatch fa-fw"></i> <!-- .fas fa-stopwatch fa-fw -->
+          flex flex-1ible Time
+          <span class="text-muted" style="margin:0 1em;">·</span> <!-- .text-muted -->
+          <i class="fas fa-calendar-check fa-fw"></i> <!-- .fas fa-calendar-check fa-fw -->
+          Unlimited Vacation
+          <span class="hidden-mobile text-muted" style="margin:0 1em;">·</span> <!-- .text-muted -->
+          <br class="visible-mobile">
+          <i class="fas fa-utensils fa-fw"></i> <!-- .fas fa-utensils fa-fw -->
+          Free Snack
+          <span class="text-muted" style="margin:0 0.5em;">·</span> <!-- .text-muted -->
+          <i class="fas fa-paw fa-fw"></i> <!-- .fas fa-paw fa-fw -->
+          We Love Pets
+        </small>
+      </p>
+
+      <div class="row force">
+        <div class="flex flex-2">
+          <%= image_tag 'oulong.jpg', class: 'img-rounded' %>
+        </div> <!-- .flex flex-2 -->
+
+        <div class="flex flex-3">
+          <%= image_tag 'barley.jpg', class: 'img-rounded' %>
+        </div> <!-- .flex flex-3 -->
+
+        <div class="flex flex-2">
+          <%= image_tag 'gou.jpg', class: 'img-rounded' %>
+        </div> <!-- .flex flex-2 -->
+      </div> <!-- .row -->
+      <br>
+      <%= link_to "Learn more","https://www.eventpop.me/careers/engineerings", class: 'btn btn-primary', target: :_blank %>
+    </div> <!-- .container text-center -->
+  </div> <!-- .section -->
+</div> <!-- #full-page -->

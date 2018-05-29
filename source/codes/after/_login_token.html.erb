@@ -1,0 +1,6 @@
+# app/models/login_token.rb
+class LoginToken < ApplicationRecord
+  include Tokenizer
+
+  tokenize
+end

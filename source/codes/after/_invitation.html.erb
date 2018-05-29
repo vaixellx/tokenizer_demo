@@ -1,0 +1,7 @@
+# app/models/invitation.rb
+class Invitation < ApplicationRecord
+  include Tokenizer
+
+  tokenize :token, length: 10
+  validates :email, presence: true
+end
