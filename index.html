@@ -1,0 +1,603 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Use the title from a page's frontmatter if it has one -->
+    <title>Tokenizer Demo</title>
+    <link href="/stylesheets/site-2d9ff3fe.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  </head>
+  <body>
+    <div id="full-page">
+  <div class="section" data-anchor="welcome">
+    <div class="container text-center">
+      <div id="logo">
+        <i class="fa fa-gem tada infinite animated"></i> <!-- .fa fa-gem -->
+
+        <h3>
+          Welcome to Ruby Tuesday!
+          <br>
+          <small class="text-muted">Wed, 30 May 2018</small> <!-- .text-muted -->
+        </h3>
+      </div> <!-- #logo -->
+      <hr>
+      <h2 class="text-primary">
+        Reduce Code Duplication using <strong>Concern</strong>.
+      </h2> <!-- .text-primary -->
+    </div> <!-- .container text-center -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="whoami">
+    <div class="container text-center">
+      <h2 class="text-primary">
+        Who am I?
+      </h2> <!-- .text-primary -->
+
+      <img src="/images/avatar-50269164.png" width="120" class="avatar" alt="Avatar" />
+      <div style="margin-top: 15px;">
+        Pathompon Jirawanidchakorn (Boat)
+        <br>
+        <small class="text-muted">
+          CTO of Event Pop
+          <br><br>
+
+<a href="mailto:boat@eventpop.me">            <i class="far fa-fw fa-envelope"></i> <!-- .far fa-envelope -->
+            boat@eventpop.me
+</a>          <br>
+
+<a href="https://github.com/vaixellx">            <i class="fab fa-fw fa-github-alt"></i> <!-- .fab fa-github-alt -->
+            vaixellx
+            <br>
+</a>        </small> <!-- .text-muted -->
+      </div>
+    </div> <!-- .container text-center -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="getting-started">
+    <div class="container cover">
+      <h2 class="text-primary">Getting Started</h2> <!-- .text-primary -->
+
+      <ul>
+        <li>
+          Clone project from
+          <a target="_blank" href="https://github.com/vaixellx/tokenizer_demo">Github</a>.
+          <code class="shell">git clone git@github.com:vaixellx/tokenizer_demo.git</code>
+        </li>
+
+        <li>
+          Checkout commit which still has problems.
+          <code class="shell">git checkout 02a36049724a1d2ea78827b88e469dd60954a6ee</code>
+        </li>
+      </ul>
+    </div> <!-- .container -->
+  </div> <!-- .section -->
+
+    <div class="section" data-anchor="code-action-token">
+      <div class="container">
+        <h2>Model ActionToken</h2>
+        <code class="ruby"># app/models/action_token.rb
+class ActionToken < ApplicationRecord
+  TOKEN_FRAGMENTS = [
+    ('A'..'Z').to_a - ['I', 'O'],
+    (2..9).to_a
+  ].flatten.freeze
+
+  before_create :generate_token
+
+  private
+
+  def generate_token
+    self.token = random_token
+  end
+
+  def random_token
+    Array.new(6) { TOKEN_FRAGMENTS.sample }.join
+  end
+end
+</code> <!-- .ruby -->
+      </div> <!-- .container -->
+    </div> <!-- .section -->
+    <div class="section" data-anchor="code-login-token">
+      <div class="container">
+        <h2>Model LoginToken</h2>
+        <code class="ruby"># app/models/login_token.rb
+class LoginToken < ApplicationRecord
+  TOKEN_FRAGMENTS = [
+    ('A'..'Z').to_a - ['I', 'O'],
+    (2..9).to_a
+  ].flatten.freeze
+
+  before_create :generate_token
+
+  private
+
+  def generate_token
+    self.token = random_token
+  end
+
+  def random_token
+    Array.new(6) { TOKEN_FRAGMENTS.sample }.join
+  end
+end
+</code> <!-- .ruby -->
+      </div> <!-- .container -->
+    </div> <!-- .section -->
+    <div class="section" data-anchor="code-invitation">
+      <div class="container">
+        <h2>Model Invitation</h2>
+        <code class="ruby"># app/models/invitation.rb
+class Invitation < ApplicationRecord
+  TOKEN_FRAGMENTS = [
+    ('A'..'Z').to_a - ['I', 'O'],
+    (2..9).to_a
+  ].flatten.freeze
+
+  validates :email, presence: true
+  before_create :generate_token
+
+  private
+
+  def generate_token
+    self.ref_code = random_token
+  end
+
+  def random_token
+    Array.new(10) { TOKEN_FRAGMENTS.sample }.join
+  end
+end
+</code> <!-- .ruby -->
+      </div> <!-- .container -->
+    </div> <!-- .section -->
+    <div class="section" data-anchor="code-ticket">
+      <div class="container">
+        <h2>Model Ticket</h2>
+        <code class="ruby"># app/model/ticket.rb
+class Ticket < ApplicationRecord
+  TOKEN_FRAGMENTS = [
+    ('A'..'Z').to_a - ['I', 'O'],
+    (2..9).to_a
+  ].flatten.freeze
+
+  validates :email, presence: true
+  before_create :generate_token
+
+  private
+
+  def generate_token
+    self.ref_code = random_token
+  end
+
+  def random_token
+    Array.new(6) { TOKEN_FRAGMENTS.sample }.join
+  end
+end
+</code> <!-- .ruby -->
+      </div> <!-- .container -->
+    </div> <!-- .section -->
+
+  <div class="section" data-anchor="what-is-problem">
+    <div class="container text-center">
+      <h1>What is the problem?</h1>
+      <div class="big-moji">🤔</div> <!-- .big-moji -->
+    </div> <!-- .container text-center -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="duplicate-everywhere">
+    <div class="container text-center">
+      <img src="/images/duplicate-b6d49cd9.jpg" width="650" class="img-rounded" alt="Duplicate" />
+      <br><br>
+      <small>
+        View on Github:
+<a href="https://github.com/vaixellx/tokenizer_demo/commit/02a36049724a1d2ea78827b88e469dd60954a6ee" class="commit" target="_blank">          <i class="fas fa-code-branch"></i> <!-- .fas fa-link -->
+          <strong>02a3604</strong>
+</a>      </small>
+    </div> <!-- .container text-center -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="how-to-fix">
+    <div class="container text-center">
+      <h1>How to fix these codes?</h1>
+    </div> <!-- .container text-center -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="active-support-concern">
+    <div class="container cover">
+      <h2 class="text-primary">ActiveSupport::Concern</h2> <!-- .text-primary -->
+      <ul>
+        <li>Ruby module with more tools like <em>class_methods</em>, <em>included</em>.</li>
+        <li>Better dependencies handling.</li>
+        <li>
+          Cleaner.
+
+          <div class="row hidden-mobile">
+            <div class="flex flex-1">
+              <code class="ruby smaller"># Standard module.
+module Tokenizer
+  def self.included(base)
+    base.extend ClassMethods
+    base.class_eval do
+      # Stuffs...
+    end
+  end
+
+  module ClassMethods
+    # class methods definition...
+  end
+end
+</code> <!-- .ruby -->
+            </div> <!-- .flex flex-1 -->
+            <div class="flex flex-1">
+              <code class="ruby smaller"># ActiveSupport Concern.
+module Tokenizer
+  extend ActiveSupport::Concern
+
+  included do
+    # Stuffs...
+  end
+
+  class_methods do
+    # class methods definition...
+  end
+end
+</code> <!-- .ruby -->
+            </div> <!-- .flex flex-1 -->
+          </div> <!-- .row -->
+        </li>
+        <li>
+          Learn more, see
+          <a href="http://api.rubyonrails.org/classes/ActiveSupport/Concern.html" target="_blank">documentation</a>.
+        </li>
+      </ul>
+    </div> <!-- .container cover -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="refactoring-begin">
+    <div class="container text-center">
+      <h1>Refactoring Begin!</h1>
+    </div> <!-- .container text-center -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="1-create-tokenizer-module">
+    <div class="container cover">
+      <h1 class="text-primary">
+        1. Create Tokenizer module.
+      </h1> <!-- .text-primary -->
+
+      <ul>
+        <li>Move duplicate code to <em class="text-muted">app/models/concerns/tokenizer.rb</em></li>
+        <li>
+          Replace duplicated code with
+          <code class="inline">tokenizer</code> <!-- .inline -->
+          in
+          <code class="inline">ActionToken</code> <!-- .inline -->
+          and
+          <code class="inline">LoginToken</code> <!-- .inline -->
+          model.
+        </li>
+        <li>
+          View on Github:
+<a href="https://github.com/vaixellx/tokenizer_demo/commit/6e6f430bc40b8443ccf2cb44bff8f11bb94b168c" class="commit" target="_blank">            <i class="fas fa-code-branch"></i> <!-- .fas fa-link -->
+            <strong>6e6f430</strong>
+</a>        </li>
+      </ul>
+    </div> <!-- .container cover -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="1-1-simple-tokenizer">
+    <div class="container cover">
+      <h2>Move duplicate code to tokenizer</h2>
+      <code class="ruby smaller"># app/models/concerns/tokenizer.rb
+module Tokenizer
+  extend ActiveSupport::Concern
+
+  TOKEN_FRAGMENTS = [
+    ('A'..'Z').to_a - ['I', 'O'],
+    (2..9).to_a
+  ].flatten.freeze
+
+  class_methods do
+    def tokenize
+      before_create :generate_token
+    end
+  end
+
+  private
+
+  def generate_token
+    self.token = random_token
+  end
+
+  def random_token
+    Array.new(6) { TOKEN_FRAGMENTS.sample }.join
+  end
+end
+</code> <!-- .ruby smaller -->
+    </div> <!-- .container cover -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="1-2-apply-tokenizer-to-token-model">
+    <div class="container cover">
+      <h2>Replace duplicated code with tokenizer.</h2>
+      <div class="row">
+        <div class="flex flex-1">
+          Model ActionToken
+          <code class="ruby"># app/models/action_token.rb
+class ActionToken < ApplicationRecord
+  include Tokenizer
+
+  tokenize
+end
+</code> <!-- .ruby -->
+        </div> <!-- .flex flex-1 -->
+
+        <div class="flex flex-1">
+          Model LoginToken
+          <code class="ruby"># app/models/login_token.rb
+class LoginToken < ApplicationRecord
+  include Tokenizer
+
+  tokenize
+end
+</code> <!-- .ruby -->
+        </div> <!-- .flex flex-1 -->
+      </div> <!-- .row -->
+    </div> <!-- .container cover -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="2-make-tokenizer-work-with-other-column">
+    <div class="container cover">
+      <h1 class="text-primary">
+        2. Make Tokenizer work with other column.
+      </h1> <!-- .text-primary -->
+
+      <ul>
+        <li>
+          Add <em class="text-muted">column_name</em> to
+          <code class="inline">tokenize</code> <!-- .inline --> method.
+        <li>
+          Apply <code class="inline">tokenize</code> <!-- .inline -->
+          with custom column to
+          <code class="inline">Ticket</code> <!-- .inline -->
+          model.
+        </li>
+        <li>
+          View on Github:
+<a href="https://github.com/vaixellx/tokenizer_demo/commit/d106c125c8866ef8924e0113245ae65d03d6bf4b" class="commit" target="_blank">            <i class="fas fa-code-branch"></i> <!-- .fas fa-link -->
+            <strong>d106c12</strong>
+</a>        </li>
+      </ul>
+    </div> <!-- .container cover -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="2-1-add-column-name-to-tokenizer">
+    <div class="container cover">
+      <h2>Add column_name to tokenize method.</h2>
+      <code class="ruby smaller"># app/models/concerns/tokenizer.rb
+module Tokenizer
+  #...
+
+  class_methods do
+    def tokenize(column=:token)
+      @tokenize_column = column
+
+      before_create :generate_token
+    end
+  end
+
+  private
+
+  def tokenize_column
+    self.class.instance_variable_get('@tokenize_column')
+  end
+
+  def generate_token
+    self.send "#{tokenize_column}=", random_token
+  end
+
+  # ...
+end
+</code> <!-- .ruby smaller -->
+    </div> <!-- .container cover -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="2-2-apply-to-ticket">
+    <div class="container cover">
+      <h2>Apply tokenize with custom column to Ticket model.</h2>
+      <code class="ruby"># app/model/ticket.rb
+class Ticket < ApplicationRecord
+  include Tokenizer
+
+  tokenize :ref_code
+  validates :email, presence: true
+end
+</code> <!-- .ruby -->
+    </div> <!-- .container cover -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="3-make-tokenizer-work-with-other-length">
+    <div class="container cover">
+      <h1 class="text-primary">
+        3. Make Tokenizer can specify token length.
+      </h1> <!-- .text-primary -->
+
+      <ul>
+        <li>
+          Add <em class="text-muted">length</em> to <code class="inline">tokenize</code> <!-- .inline -->
+          method.
+        <li>
+          Apply <code class="inline">tokenizer</code> <!-- .inline -->
+          with length to
+          <code class="inline">Invitation</code> <!-- .inline -->
+          model.
+        </li>
+        <li>
+          View on Github:
+<a href="https://github.com/vaixellx/tokenizer_demo/commit/1d9a34df6698d029cd315aa62122b0b77921a6b1" class="commit" target="_blank">            <i class="fas fa-code-branch"></i> <!-- .fas fa-link -->
+            <strong>1d9a34d</strong>
+</a>        </li>
+      </ul>
+    </div> <!-- .container cover -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="3-1-add-length-to-tokenizer">
+    <div class="container cover">
+      <h2>Add length to tokenize method.</h2>
+      <code class="ruby smaller"># app/models/concerns/tokenizer.rb
+module Tokenizer
+  #...
+
+  class_methods do
+    def tokenize(column=:token, length: 6)
+      @tokenize_column = column
+      @tokenize_token_length = length
+
+      before_create :generate_token
+    end
+  end
+
+  private
+
+  def tokenize_token_length
+    self.class.instance_variable_get('@tokenize_token_length')
+  end
+
+  # ...
+
+  def random_token
+    Array.new(tokenize_token_length) { TOKEN_FRAGMENTS.sample }.join
+  end
+end
+</code> <!-- .ruby smaller -->
+    </div> <!-- .container cover -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="3-2-apply-to-invitation">
+    <div class="container cover">
+      <h2>Apply tokenize with length to Invitation model.</h2>
+      <code class="ruby"># app/models/invitation.rb
+class Invitation < ApplicationRecord
+  include Tokenizer
+
+  tokenize :token, length: 10
+  validates :email, presence: true
+end
+</code> <!-- .ruby -->
+    </div> <!-- .container cover -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="after-refactor">
+    <div class="container cover">
+      <h2 class="text-primary">After Refactor</h2> <!-- .text-primary -->
+
+        <div class="row">
+            <div class="flex flex-1">
+              ActionToken
+              <code class="ruby smaller"># app/models/action_token.rb
+class ActionToken < ApplicationRecord
+  include Tokenizer
+
+  tokenize
+end
+</code> <!-- .ruby smaller -->
+            </div> <!-- .flex flex-1 -->
+            <div class="flex flex-1">
+              LoginToken
+              <code class="ruby smaller"># app/models/login_token.rb
+class LoginToken < ApplicationRecord
+  include Tokenizer
+
+  tokenize
+end
+</code> <!-- .ruby smaller -->
+            </div> <!-- .flex flex-1 -->
+        </div> <!-- .row -->
+        <div class="row">
+            <div class="flex flex-1">
+              Invitation
+              <code class="ruby smaller"># app/models/invitation.rb
+class Invitation < ApplicationRecord
+  include Tokenizer
+
+  tokenize :token, length: 10
+  validates :email, presence: true
+end
+</code> <!-- .ruby smaller -->
+            </div> <!-- .flex flex-1 -->
+            <div class="flex flex-1">
+              Ticket
+              <code class="ruby smaller"># app/model/ticket.rb
+class Ticket < ApplicationRecord
+  include Tokenizer
+
+  tokenize :ref_code
+  validates :email, presence: true
+end
+</code> <!-- .ruby smaller -->
+            </div> <!-- .flex flex-1 -->
+        </div> <!-- .row -->
+    </div> <!-- .container cover -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="awesome!">
+    <div class="container text-center">
+      <h1>Awesome!!!</h1>
+      <img src="/images/awesome-503995d7.png" width="250" alt="Awesome" />
+    </div> <!-- .container text-center -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="q-and-a">
+    <div class="container text-center">
+      <h1>Q & A</h1>
+      <img src="/images/qa-7bf7cdd7.jpg" width="650" class="img-rounded" alt="Qa" />
+    </div> <!-- .container text-center -->
+  </div> <!-- .section -->
+
+  <div class="section" data-anchor="we-are-hiring">
+    <div class="container text-center">
+      <h1>We are Hiring!</h1>
+      <p>
+        <small>
+          <i class="fas fa-stopwatch fa-fw"></i> <!-- .fas fa-stopwatch fa-fw -->
+          flex flex-1ible Time
+          <span class="text-muted" style="margin:0 1em;">·</span> <!-- .text-muted -->
+          <i class="fas fa-calendar-check fa-fw"></i> <!-- .fas fa-calendar-check fa-fw -->
+          Unlimited Vacation
+          <span class="hidden-mobile text-muted" style="margin:0 1em;">·</span> <!-- .text-muted -->
+          <br class="visible-mobile">
+          <i class="fas fa-utensils fa-fw"></i> <!-- .fas fa-utensils fa-fw -->
+          Free Snack
+          <span class="text-muted" style="margin:0 0.5em;">·</span> <!-- .text-muted -->
+          <i class="fas fa-paw fa-fw"></i> <!-- .fas fa-paw fa-fw -->
+          We Love Pets
+        </small>
+      </p>
+
+      <div class="row force">
+        <div class="flex flex-2">
+          <img src="/images/oulong-756077f7.jpg" class="img-rounded" alt="Oulong" />
+        </div> <!-- .flex flex-2 -->
+
+        <div class="flex flex-3">
+          <img src="/images/barley-a83cdbbb.jpg" class="img-rounded" alt="Barley" />
+        </div> <!-- .flex flex-3 -->
+
+        <div class="flex flex-2">
+          <img src="/images/gou-b69cbcb8.jpg" class="img-rounded" alt="Gou" />
+        </div> <!-- .flex flex-2 -->
+      </div> <!-- .row -->
+      <br>
+      <a href="https://www.eventpop.me/careers/engineerings" class="btn btn-primary" target="_blank">Learn more</a>
+    </div> <!-- .container text-center -->
+  </div> <!-- .section -->
+</div> <!-- #full-page -->
+
+    <script src="/javascripts/site-2caa317e.js"></script>
+
+    <footer>
+      <img src="/images/eventpop-cb4519f9.png" height="24" alt="Eventpop" />
+    </footer>
+  </body>
+</html>
