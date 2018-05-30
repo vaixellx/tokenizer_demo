@@ -349,18 +349,31 @@ commits:
         </small>
       </p>
 
-      <div class="row force">
-        <div class="flex flex-2">
-          <%= image_tag 'oulong.jpg', class: 'img-rounded' %>
-        </div> <!-- .flex flex-2 -->
+      <div class="row">
+        <div class="flex" style="flex: 5">
+          <div class="row force">
+            <div class="flex flex-2">
+              <%= image_tag 'oulong.jpg', class: 'img-rounded' %>
+            </div> <!-- .flex flex-2 -->
 
-        <div class="flex flex-3">
-          <%= image_tag 'barley.jpg', class: 'img-rounded' %>
-        </div> <!-- .flex flex-3 -->
+            <div class="flex flex-3">
+              <%= image_tag 'barley.jpg', class: 'img-rounded' %>
+            </div> <!-- .flex flex-3 -->
+          </div> <!-- .row force -->
+        </div> <!-- .flex flex-1 -->
 
-        <div class="flex flex-2">
-          <%= image_tag 'gou.jpg', class: 'img-rounded' %>
-        </div> <!-- .flex flex-2 -->
+
+        <div class="flex" style="flex: 4">
+          <div class="row force">
+            <div class="flex flex-2">
+              <%= image_tag 'toby.jpg', class: 'img-rounded' %>
+            </div> <!-- .flex flex-2 -->
+
+            <div class="flex flex-2">
+              <%= image_tag 'gou.jpg', class: 'img-rounded' %>
+            </div> <!-- .flex flex-2 -->
+          </div> <!-- .row force -->
+        </div> <!-- .flex flex-1 -->
       </div> <!-- .row -->
       <br>
       <%= link_to "Learn more","https://www.eventpop.me/careers/engineerings", class: 'btn btn-primary', target: :_blank %>

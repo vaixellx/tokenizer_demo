@@ -184,7 +184,7 @@ img {
   .row:not(.force) {
     display: block;
 
-    .flex-1 {
+    & > .flex {
       margin-top: 1em;
       margin-left: 0;
 
